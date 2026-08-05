@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 
-async function CreateNewAd(adData: Listing) {
+async function CreateNewAd(adData: any) {
   try {
     const newAd = await prisma.listing.create({
       data: adData,
@@ -34,11 +34,25 @@ export default async function Handler(
         });
 
         const userId = user?.id;
-        const adData = {
+        const { images, tags, ...restBody } = req.body;
+
+        const adData: any = {
           userId,
-          ...req.body,
-          price: parseInt(req.body.price, 10),
+          ...restBody,
+          price: parseInt(restBody.price, 10),
         };
+
+        if (images && images.length > 0) {
+          adData.images = {
+            create: images.map((url: string) => ({ url })),
+          };
+        }
+
+        if (tags && tags.length > 0) {
+          adData.tags = {
+            connect: tags.map((id: string) => ({ id })),
+          };
+        }
 
         console.log("Data from server", adData);
         const newAd = await CreateNewAd(adData);

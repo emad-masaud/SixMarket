@@ -16,11 +16,14 @@ import {
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useForm } from "@mantine/form";
 import { Category, Condition, Tag } from "@prisma/client";
-import { IconPhoto, IconUpload, IconX } from "@tabler/icons-react";
+import { IconPhoto, IconUpload, IconX, IconCheck } from "@tabler/icons-react";
 import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { NextPageWithLayout } from "../page";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { notifications } from "@mantine/notifications";
 
 interface IFormValues {
   files: FileWithPath[];
@@ -38,6 +41,10 @@ interface IFormValues {
 }
 
 const NewListing: NextPageWithLayout = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const [uploading, setUploading] = useState(false);
+  
   const [isFree, setIsFree] = useState<Boolean>(false);
   const [tagsSearchValue, onSearchChange] = useState("");
   const [categoryOptions, setCategoryOptions] = useState<
@@ -80,26 +87,73 @@ const NewListing: NextPageWithLayout = () => {
   const form = useForm<IFormValues>({
     initialValues: {
       files: [],
-      name: "Test item",
-      description: "lorem ipsum and all that stuff",
+      name: "",
+      description: "",
       condition: "NEW",
-      price: 43,
-      streetAddress: "123 Main Street",
-      city: "Toronto",
-      province: "Ontario",
-      postalCode: "M1L4P2",
-      tags: [
-        "clgttgp8k0024r9rca5fymz8z",
-        "clgttgqb6002ar9rcq6vh0wuf",
-        "clgttgro6002kr9rcr7o7ku8m",
-      ],
+      price: 0,
+      streetAddress: "",
+      city: "",
+      province: "",
+      postalCode: "",
+      tags: [],
       canDeliver: "no",
-      categoryId: "clgu9tb1p000wr9tjldwfwm3s",
+      categoryId: "",
     },
   });
 
-  const handleSubmit = async (values: any) => {
-    console.log(values);
+  const handleSubmit = async (values: IFormValues) => {
+    setUploading(true);
+    notifications.show({
+      id: "uploading",
+      title: "Creating Listing",
+      message: "Uploading images and creating your listing...",
+      loading: true,
+      autoClose: false
+    });
+
+    try {
+      const imageUrls = [];
+      for (const file of values.files) {
+        const key = `users/${(session?.user as any)?.id || 'anon'}/listings/${Date.now()}-${file.name}`;
+        const uploadUrlRes = await axios.get(`/api/aws/getPresignedUploadUrl?key=${key}`);
+        const uploadUrl = uploadUrlRes.data.url;
+        await fetch(uploadUrl, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        const s3Url = uploadUrl.split("?")[0];
+        imageUrls.push(s3Url);
+      }
+
+      const adData = {
+        name: values.name,
+        description: values.description,
+        condition: values.condition,
+        price: values.price,
+        location: `${values.city}, ${values.province}`,
+        categoryId: values.categoryId,
+        tags: values.tags,
+        canDeliver: values.canDeliver === "yes",
+        images: imageUrls
+      };
+
+      const res = await axios.post("/api/listings/createNewListing", adData);
+      notifications.hide("uploading");
+      notifications.show({
+        title: "Success!",
+        message: "Listing created successfully",
+        color: "green",
+        icon: <IconCheck />
+      });
+      router.push(`/listings/${res.data.id}`);
+    } catch (err) {
+      console.error(err);
+      notifications.hide("uploading");
+      notifications.show({
+        title: "Error",
+        message: "Failed to create listing",
+        color: "red"
+      });
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -125,7 +179,7 @@ const NewListing: NextPageWithLayout = () => {
         description="Complete the steps below to create a new listing."
       />
 
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
         <Dropzone
           onDrop={(images) => {
             form.setFieldValue("files", images);
@@ -269,7 +323,7 @@ const NewListing: NextPageWithLayout = () => {
           nothingFound="Nothing found"
         />
 
-        <Button type="submit" mt="md" onClick={() => handleSubmit}>
+        <Button type="submit" mt="md" loading={uploading}>
           Submit
         </Button>
       </form>

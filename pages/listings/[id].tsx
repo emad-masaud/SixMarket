@@ -21,6 +21,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
 import { NextPageWithLayout } from "../page";
+import SaudiRiyalIcon from "@/components/icons/SaudiRiyalIcon";
 
 export interface ListingWithAllInfo extends Listing {
   images: ImageFromSchema[];
@@ -152,13 +153,22 @@ const IndividualListing: NextPageWithLayout<IndividualListingProps> = ({
       <section className="w-full flex justify-between pb-8">
         <h1 className="text-3xl font-normal flex flex-col ">
           {listingInfo?.name}{" "}
-          <span className="text-green-700 pt-2">
-            {listingInfo?.price
-              ? new Intl.NumberFormat("ar-SA", {
+          <span className="text-green-700 pt-2 flex items-center gap-1">
+            {listingInfo?.price ? (
+              (listingInfo?.currency || "SAR") === "SAR" ? (
+                <>
+                  {new Intl.NumberFormat("ar-SA").format(listingInfo.price)}
+                  <SaudiRiyalIcon className="w-5 h-5 text-green-700" />
+                </>
+              ) : (
+                new Intl.NumberFormat("ar-SA", {
                   style: "currency",
-                  currency: listingInfo?.currency || "SAR",
-                }).format(listingInfo?.price)
-              : "مجاني"}
+                  currency: listingInfo?.currency,
+                }).format(listingInfo.price)
+              )
+            ) : (
+              "مجاني"
+            )}
           </span>
         </h1>
 

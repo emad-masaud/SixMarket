@@ -41,6 +41,8 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
+import SaudiRiyalIcon from "../../../components/icons/SaudiRiyalIcon";
+
 export interface IListingCard {
   images: string[];
   title: string;
@@ -66,12 +68,21 @@ const ListingCard: FC<IListingCard> = ({
     </Carousel.Slide>
   ));
 
-  const formattedPrice = price
-    ? new Intl.NumberFormat("ar-SA", {
-        style: "currency",
-        currency: currency,
-      }).format(price)
-    : "مجاني";
+  const renderPrice = () => {
+    if (!price) return "مجاني";
+    if (currency === "SAR") {
+      return (
+        <span className="flex items-center gap-1">
+          {new Intl.NumberFormat("ar-SA").format(price)}
+          <SaudiRiyalIcon className="w-4 h-4 text-green-700" />
+        </span>
+      );
+    }
+    return new Intl.NumberFormat("ar-SA", {
+      style: "currency",
+      currency: currency,
+    }).format(price);
+  };
 
   return (
     <Card radius="md" withBorder padding="xs">
@@ -106,7 +117,7 @@ const ListingCard: FC<IListingCard> = ({
         <Group position="apart" mt="md" align="baseline">
           <div>
             <Text fz="xl" span className={classes.price}>
-              {formattedPrice}
+              {renderPrice()}
             </Text>
           </div>
         </Group>

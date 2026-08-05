@@ -3,6 +3,7 @@ import { Listing } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import { sendEmail } from "@/utils/emailer";
 
 async function CreateNewAd(adData: any) {
   try {
@@ -56,6 +57,14 @@ export default async function Handler(
 
         console.log("Data from server", adData);
         const newAd = await CreateNewAd(adData);
+
+        if (user && user.email) {
+          await sendEmail(
+            user.email,
+            "Your listing is live!",
+            `<h1>Congratulations!</h1><p>Your listing <strong>${newAd.name}</strong> has been successfully published on Marketplace.</p>`
+          );
+        }
 
         res.status(201).json(newAd);
       } catch (error: any) {

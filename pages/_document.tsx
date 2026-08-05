@@ -9,7 +9,15 @@ export default class _Document extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          {process.env.NEXT_PUBLIC_ADSENSE_PUB_ID && (
+            <script
+              async
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_PUB_ID}`}
+              crossOrigin="anonymous"
+            ></script>
+          )}
+        </Head>
         <body>
           <Main />
           <NextScript />

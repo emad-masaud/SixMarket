@@ -1,4 +1,5 @@
 import ListingCard from "@/components/cards/listing/ListingCard";
+import AdSense from "@/components/ads/AdSense";
 import PrimaryLayout from "@/components/layout/primary/PrimaryLayout";
 import { Button, Skeleton } from "@mantine/core";
 import { Image as PrismaImage, Listing as PrismaListing } from "@prisma/client";
@@ -82,6 +83,9 @@ const Home: NextPageWithLayout = () => {
           {heroButtonsLayout}
         </div>
       </section>
+
+      {/* AdSense Unit */}
+      <AdSense adSlot="1234567890" adFormat="auto" />
 
       {/* Recently posted ads */}
       <section className="flex flex-col w-full">

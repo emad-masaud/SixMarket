@@ -8,7 +8,7 @@ export default class _Document extends Document {
 
   render() {
     return (
-      <Html>
+      <Html dir="rtl" lang="ar">
         <Head>
           {process.env.NEXT_PUBLIC_ADSENSE_PUB_ID && (
             <script

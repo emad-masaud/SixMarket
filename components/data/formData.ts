@@ -1,10 +1,10 @@
 export const conditionOptions = [
-  { value: "NEW", label: "New" },
-  { value: "LIKE_NEW", label: "Like-new" },
-  { value: "EXCELLENT", label: "Excellent" },
-  { value: "GOOD", label: "Good" },
-  { value: "FAIR", label: "Fair" },
-  { value: "SALVAGE", label: "Salvage" },
+  { value: "NEW", label: "جديد بقراطيسه" },
+  { value: "LIKE_NEW", label: "أخو الجديد" },
+  { value: "EXCELLENT", label: "نظيف بالحيل" },
+  { value: "GOOD", label: "نظيف" },
+  { value: "FAIR", label: "يمشي الحال" },
+  { value: "SALVAGE", label: "سكراب وتشليح" },
 ];
 
 export const provinceOptions = [

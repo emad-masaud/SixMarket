@@ -38,6 +38,7 @@ interface IFormValues {
   tags: string[];
   canDeliver: string;
   categoryId: string;
+  currency: string;
 }
 
 const NewListing: NextPageWithLayout = () => {
@@ -98,6 +99,7 @@ const NewListing: NextPageWithLayout = () => {
       tags: [],
       canDeliver: "no",
       categoryId: "",
+      currency: "SAR",
     },
   });
 
@@ -105,8 +107,8 @@ const NewListing: NextPageWithLayout = () => {
     setUploading(true);
     notifications.show({
       id: "uploading",
-      title: "Creating Listing",
-      message: "Uploading images and creating your listing...",
+      title: "جاري اعتماد الإعلان",
+      message: "جاري رفع الصور واعتماد إعلانك...",
       loading: true,
       autoClose: false
     });
@@ -131,14 +133,15 @@ const NewListing: NextPageWithLayout = () => {
         categoryId: values.categoryId,
         tags: values.tags,
         canDeliver: values.canDeliver === "yes",
-        images: imageUrls
+        images: imageUrls,
+        currency: values.currency,
       };
 
       const res = await axios.post("/api/listings/createNewListing", adData);
       notifications.hide("uploading");
       notifications.show({
-        title: "Success!",
-        message: "Listing created successfully",
+        title: "تم!",
+        message: "نزل إعلانك بنجاح",
         color: "green",
         icon: <IconCheck />
       });
@@ -147,8 +150,8 @@ const NewListing: NextPageWithLayout = () => {
       console.error(err);
       notifications.hide("uploading");
       notifications.show({
-        title: "Error",
-        message: "Failed to create listing",
+        title: "خطأ",
+        message: "فشل تنزيل الإعلان",
         color: "red"
       });
     } finally {
@@ -175,8 +178,8 @@ const NewListing: NextPageWithLayout = () => {
       </Head>
 
       <HeadingSection
-        title="Create a new listing"
-        description="Complete the steps below to create a new listing."
+        title="نزل إعلانك"
+        description="عبي البيانات تحت عشان تنزل إعلانك بالموقع."
       />
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -206,39 +209,35 @@ const NewListing: NextPageWithLayout = () => {
 
             <div>
               <Text size="xl" inline>
-                Drag images here or click to select files
+                اسحب الصور هنا أو اضغط عشان تختار من جهازك
               </Text>
               <Text size="sm" color="dimmed" inline mt={7}>
-                Attach as many files as you like, each file should not exceed
-                5mb
+                ارفع الصور اللي تبي، بس حجم الصورة ما يتعدى 5 ميجا
               </Text>
             </div>
           </Group>
         </Dropzone>
-        {/* Name */}
         <TextInput
-          label="Title"
+          label="عنوان الإعلان"
           mt="md"
-          placeholder="Used Nike shoes"
+          placeholder="مثال: سوني 5 مستعمل أخو الجديد"
           name="title"
           {...form.getInputProps("name")}
           required
           maw={400}
         />
-        {/* Description */}
         <Textarea
-          label="Description"
-          placeholder="Slightly used and worn it, perfect for runners!"
+          label="التفاصيل"
+          placeholder="اكتب كل التفاصيل عن سعلتك عشان تريح الشراي"
           name="description"
           {...form.getInputProps("description")}
           mt="md"
           minRows={4}
           required
         />
-        {/* Category */}
         <Select
-          label="Category"
-          placeholder="Select"
+          label="القسم"
+          placeholder="اختر القسم"
           name="category"
           {...form.getInputProps("categoryId")}
           maw={400}
@@ -248,10 +247,9 @@ const NewListing: NextPageWithLayout = () => {
           mt="md"
           data={categoryOptions}
         />
-        {/* Condition */}
         <Select
-          label="Condition"
-          placeholder="Select"
+          label="الحالة"
+          placeholder="اختر حالة السلعة"
           name="condition"
           {...form.getInputProps("condition")}
           maw={400}
@@ -259,7 +257,7 @@ const NewListing: NextPageWithLayout = () => {
           mt="md"
           data={conditionOptions}
         />
-        {/* Price */}
+        {/* Price and Currency */}
         <Group align="center" mt="md">
           <Radio
             mt={"xs"}
@@ -268,7 +266,7 @@ const NewListing: NextPageWithLayout = () => {
             onChange={() => setIsFree(false)}
           />
           <NumberInput
-            label="Price"
+            label="السعر"
             {...form.getInputProps("price")}
             maw={400}
             name="price"
@@ -283,33 +281,45 @@ const NewListing: NextPageWithLayout = () => {
                 : "$ "
             }
           />
+          <Select
+            label="العملة"
+            {...form.getInputProps("currency")}
+            name="currency"
+            // @ts-ignore
+            disabled={isFree}
+            required
+            data={[
+              { value: "SAR", label: "ريال سعودي" },
+              { value: "USD", label: "دولار أمريكي" },
+              { value: "EUR", label: "يورو" },
+            ]}
+          />
         </Group>
 
         {/* Free? */}
         <Radio
           mt={"xs"}
           value="free"
-          label="Free"
+          label="مجاني"
           // @ts-ignore
           checked={isFree}
           onChange={() => setIsFree(true)}
         />
 
-        {/* Can deliver? */}
         <Radio.Group
-          label="Can you deliver this item?"
+          label="تقدر توصل السلعة للمشتري؟"
           {...form.getInputProps("canDeliver")}
           name="canDeliver"
           required
           mt={"md"}
         >
-          <Radio mt={"xs"} value="yes" label="Yes" />
-          <Radio mt={"xs"} value="no" label="No" />
+          <Radio mt={"xs"} value="yes" label="إيه أقدر" />
+          <Radio mt={"xs"} value="no" label="لا ما أقدر" />
         </Radio.Group>
         {/* Tags */}
         <MultiSelect
-          label="Tags"
-          placeholder="Select maximum 3 tags"
+          label="الكلمات الدلالية (التاقات)"
+          placeholder="اختر ٣ تاقات كحد أقصى"
           {...form.getInputProps("tags")}
           name="tags"
           data={tagsOptions}
@@ -324,7 +334,7 @@ const NewListing: NextPageWithLayout = () => {
         />
 
         <Button type="submit" mt="md" loading={uploading}>
-          Submit
+          اعتمد الإعلان
         </Button>
       </form>
     </>

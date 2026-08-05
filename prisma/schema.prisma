@@ -22,6 +22,7 @@ model Listing {
   condition   Condition  @default(NEW)
   reported    Boolean    @default(false)
   price       Int? // Some items may not have a price, e.g. free items
+  currency    String     @default("SAR")
   images      Image[]
   location    String
   tags        Tag[]

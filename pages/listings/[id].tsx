@@ -152,7 +152,14 @@ const IndividualListing: NextPageWithLayout<IndividualListingProps> = ({
       <section className="w-full flex justify-between pb-8">
         <h1 className="text-3xl font-normal flex flex-col ">
           {listingInfo?.name}{" "}
-          <span className="text-green-700 pt-2">{`$${listingInfo?.price}`}</span>
+          <span className="text-green-700 pt-2">
+            {listingInfo?.price
+              ? new Intl.NumberFormat("ar-SA", {
+                  style: "currency",
+                  currency: listingInfo?.currency || "SAR",
+                }).format(listingInfo?.price)
+              : "مجاني"}
+          </span>
         </h1>
 
         {/* Allow adding to favorites if the user isn't the poster of the listing */}

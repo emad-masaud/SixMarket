@@ -45,7 +45,7 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
     validate: {
       message: (value) =>
         value.length < 10 || value.length > 200
-          ? "Message must be between 10 and 200 characters"
+          ? "رسالتك لازم تكون بين 10 و 200 حرف"
           : null,
     },
   });
@@ -66,16 +66,15 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
       {alreadySent ? (
         <>
           <p className="mb-4">
-            You&apos;ve sent a message to <b>{listing.user.name}</b> about this
-            listing. We will notify you when they respond.
+            أرسلت رسالة لـ <b>{listing.user.name}</b> بخصوص هالإعلان. بنعطيك خبر أول ما يرد عليك.
           </p>
-          <Link href="/messages">View my messages</Link>
+          <Link href="/messages">شوف رسايلك</Link>
         </>
       ) : (
         <>
           <Textarea
-            placeholder={`Hey ${userFirstName}, is this still available?`}
-            label="Contact"
+            placeholder={`هلا ${userFirstName}، الإعلان باقي موجود؟`}
+            label="تواصل"
             name="content"
             autosize
             minRows={4}
@@ -86,9 +85,9 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
             <Button
               loading={buttonLoading}
               type="submit"
-              rightIcon={<IconSend size={"1rem"} />}
+              leftIcon={<IconSend size={"1rem"} />}
             >
-              Send
+              إرسال
             </Button>
           </Group>
         </>
@@ -147,8 +146,8 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
           );
 
           notifications.show({
-            title: "Message sent",
-            message: `Your message has been sent to ${recipientName}`,
+            title: "تم الإرسال",
+            message: `أرسلنا رسالتك لـ ${recipientName}`,
             withCloseButton: true,
             autoClose: 5000,
           });
@@ -160,8 +159,8 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
           setButtonLoading(false);
           notifications.hide("sending");
           notifications.show({
-            title: "Couldn't send the message",
-            message: `We couldn't send your message to ${recipientName}. This is a problem on our end. Please try again later.`,
+            title: "ما قدرنا نرسل رسالتك",
+            message: `معليش، ما قدرنا نرسل رسالتك لـ ${recipientName}. المشكلة من عندنا، جرب بعد شوي.`,
             loading: true,
             withCloseButton: true,
             autoClose: 5000,
@@ -222,9 +221,9 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
             renderForm()
           ) : (
             <>
-              <p className="mb-4">This is your listing.</p>
+              <p className="mb-4">هذا إعلانك يالغالي.</p>
               <Link href={`/profile/my-listings/${listing.id}`}>
-                View listing insights
+                شوف إحصائيات إعلانك
               </Link>
             </>
           )
@@ -236,15 +235,15 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
         <Flex justify="flex-start" align="center" direction="row" wrap="wrap">
           <IconClock color="#8b8b8b" />
           <Text fz="md" color="#8b8b8b" ml={4}>
-            Posted {formattedTimeAgo}
+            نزل {formattedTimeAgo}
           </Text>
         </Flex>
         <Flex justify="flex-start" align="center" direction="row" wrap="wrap">
           <IconEye color="#8b8b8b" />
           <Text color="#8b8b8b" ml={4} fz="md">
             {listing.views > 0 && listing.views < 2
-              ? `${listing.views} visit`
-              : `${listing.views} visits`}
+              ? `${listing.views} زيارة`
+              : `${listing.views} زيارة`}
           </Text>
         </Flex>
       </div>

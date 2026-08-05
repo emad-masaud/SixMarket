@@ -46,6 +46,7 @@ export interface IListingCard {
   title: string;
   description: string;
   price?: number;
+  currency?: string;
   listingId: string;
 }
 
@@ -54,6 +55,7 @@ const ListingCard: FC<IListingCard> = ({
   description,
   images,
   price,
+  currency = "SAR",
   listingId,
 }) => {
   const { classes } = useStyles();
@@ -65,11 +67,11 @@ const ListingCard: FC<IListingCard> = ({
   ));
 
   const formattedPrice = price
-    ? new Intl.NumberFormat("en-US", {
+    ? new Intl.NumberFormat("ar-SA", {
         style: "currency",
-        currency: "USD",
+        currency: currency,
       }).format(price)
-    : "Free";
+    : "مجاني";
 
   return (
     <Card radius="md" withBorder padding="xs">

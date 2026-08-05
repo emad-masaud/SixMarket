@@ -39,15 +39,15 @@ const Home: NextPageWithLayout = () => {
         <Button
           variant="light"
           onClick={() => signIn(undefined, { callbackUrl: "/" })}
-          className="mr-3"
+          className="ml-3"
         >
-          Log in
+          تسجيل الدخول
         </Button>
         <Button
           variant="filled"
           onClick={() => signIn(undefined, { callbackUrl: "/listings/new" })}
         >
-          Post an ad
+          نزل إعلانك
         </Button>
       </div>
     );
@@ -60,7 +60,7 @@ const Home: NextPageWithLayout = () => {
     );
   } else {
     heroButtonsLayout = (
-      <Button variant="filled">Browse recent listings</Button>
+      <Button variant="filled">تصفح أحدث الإعلانات</Button>
     );
   }
 
@@ -70,14 +70,12 @@ const Home: NextPageWithLayout = () => {
       <section className="pb-14 flex flex-col w-full text-center">
         {/* Title */}
         <h1 className="text-5xl lg:text-6xl mb-4 font-normal">
-          Welcome to{" "}
-          <span className="text-blue-800 font-medium">Marketplace</span>
+          حياك الله في{" "}
+          <span className="text-blue-800 font-medium">سوقنا</span>
         </h1>
         {/* Subtitle */}
         <p className="max-w-3xl mx-auto text-xl text-slate-600">
-          Discover your local marketplace for buying, selling, and trading
-          goods. Connect with nearby sellers and buyers to uncover distinctive
-          finds, hidden gems, and fantastic deals!
+          اكتشف سوقك المحلي للبيع والشراء والمقايضة. تواصل مع البائعين والشرايين حولك عشان تلقط أفضل الصيدات واللقطات الزينة بأرهب الأسعار!
         </p>
         <div className="mx-auto flex flex-col sm:flex-row sm:justify-center mt-6">
           {heroButtonsLayout}
@@ -90,10 +88,10 @@ const Home: NextPageWithLayout = () => {
       {/* Recently posted ads */}
       <section className="flex flex-col w-full">
         <h1 className="sm:text-3xl md:text-4xl font-normal w-full pb-2">
-          Recently posted
+          آخر ما نزل بالسوق
         </h1>
         <p className="text-xl text-slate-600 mb-10">
-          See what your neighbours are selling
+          شف جيرانك وش يبيعون
         </p>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-2 gap-6">
           {/* Recently posted listings */}
@@ -106,6 +104,7 @@ const Home: NextPageWithLayout = () => {
                 title={listing.name}
                 description={listing.description || ""}
                 price={listing.price || 0}
+                currency={listing.currency || "SAR"}
               />
             ))
           ) : (

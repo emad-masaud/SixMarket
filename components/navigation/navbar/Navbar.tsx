@@ -53,42 +53,42 @@ import axios from "axios";
 export const dropdownMenuData = [
   {
     icon: IconTag,
-    title: "Buy and sell",
-    description: "Browse and purchase from a wide range of products",
+    title: "بيع واشتر",
+    description: "تصفح واشتر من مجموعة واسعة من المنتجات",
     slug: "electronics",
   },
   {
     icon: IconCar,
-    title: "Cars and vehicles",
-    description: "Discover new and used cars, motorcycles, and other vehicles",
+    title: "مواتر ومركبات",
+    description: "اكتشف السيارات والمواتر الجديدة والمستعملة",
     slug: "electronics",
   },
   {
     icon: IconHome,
-    title: "Real estate",
+    title: "عقارات",
     description:
-      "Explore properties for sale or rent, including houses, apartments, and commercial spaces",
+      "تصفح العقارات للبيع أو الإيجار، بيوت، شقق، ومحلات",
     slug: "real-estate",
   },
   {
     icon: IconBriefcase,
-    title: "Jobs",
+    title: "وظايف",
     description:
-      "Find job listings, part-time opportunities, and freelance work",
+      "دور على فرص عمل، دوام جزئي، وأعمال حرة",
     slug: "jobs",
   },
   {
     icon: IconTools,
-    title: "Services",
+    title: "خدمات",
     description:
-      "Browse professional services, including repairs, cleaning, and tutoring",
+      "تصفح الخدمات المهنية مثل التصليح، التنظيف، والتدريس",
     slug: "services",
   },
   {
     icon: IconUsers,
-    title: "Community",
+    title: "مجتمعنا",
     description:
-      "Browse professional services, including repairs, cleaning, and tutoring",
+      "تواصل مع جيرانك وأهل حارتك",
     slug: "community",
   },
 ];
@@ -221,7 +221,7 @@ const Navbar: FC<INavbar> = () => {
                 />
               }
             >
-              My listings
+              إعلاناتي
             </Menu.Item>
           </Link>
 
@@ -235,7 +235,7 @@ const Navbar: FC<INavbar> = () => {
                 />
               }
             >
-              Favourites
+              المفضلة
             </Menu.Item>
           </Link>
 
@@ -250,22 +250,22 @@ const Navbar: FC<INavbar> = () => {
                 />
               }
             >
-              Notifications
-              <Badge color="red" size="xs" variant="filled" className="ml-2">
+              الإشعارات
+              <Badge color="red" size="xs" variant="filled" className="mr-2">
                 {unreadNotificationsCount}
               </Badge>
             </Menu.Item>
           </Link>
 
-          <Menu.Label>Settings</Menu.Label>
+          <Menu.Label>الإعدادات</Menu.Label>
           <Link href="/profile/" className="no-underline">
             <Menu.Item icon={<IconUser size="0.9rem" stroke={1.5} />}>
-              My profile
+              حسابي
             </Menu.Item>
           </Link>
           <Link href="/profile/settings" className="no-underline">
             <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5} />}>
-              Account settings
+              إعدادات الحساب
             </Menu.Item>
           </Link>
           <Menu.Divider />
@@ -275,7 +275,7 @@ const Navbar: FC<INavbar> = () => {
             }}
             icon={<IconLogout size="0.9rem" stroke={1.5} />}
           >
-            Log out
+            تسجيل خروج
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
@@ -288,7 +288,7 @@ const Navbar: FC<INavbar> = () => {
         variant="light"
         onClick={() => signIn(undefined, { callbackUrl: "/" })}
       >
-        Log in
+        دخول
       </Button>
     );
   }
@@ -316,7 +316,7 @@ const Navbar: FC<INavbar> = () => {
             className={classes.hiddenMobile}
           >
             <Link href="/" className={classes.link}>
-              Home
+              الرئيسية
             </Link>
             <HoverCard
               width={600}
@@ -328,8 +328,8 @@ const Navbar: FC<INavbar> = () => {
               <HoverCard.Target>
                 <a href="#" className={classes.link}>
                   <Center inline>
-                    <Box component="span" mr={5}>
-                      Categories
+                    <Box component="span" ml={5}>
+                      الأقسام
                     </Box>
                     <IconChevronDown
                       size={16}
@@ -341,9 +341,9 @@ const Navbar: FC<INavbar> = () => {
 
               <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
                 <Group position="apart" px="md">
-                  <Text fw={500}>Categories</Text>
+                  <Text fw={500}>الأقسام</Text>
                   <Anchor component={Link} fz={"xs"} href="/categories">
-                    View all
+                    عرض الكل
                   </Anchor>
                 </Group>
 
@@ -359,14 +359,14 @@ const Navbar: FC<INavbar> = () => {
               </HoverCard.Dropdown>
             </HoverCard>
             <a href="/about" className={classes.link}>
-              About
+              من نحن
             </a>
           </Group>
 
           <Group className={classes.hiddenMobile}>
             {userMenu}
             <Button
-              leftIcon={<IconPlus size="0.9rem" color={theme.colors.dark[9]} />}
+              rightIcon={<IconPlus size="0.9rem" color={theme.colors.dark[9]} />}
               onClick={
                 status === "authenticated"
                   ? () => {
@@ -378,7 +378,7 @@ const Navbar: FC<INavbar> = () => {
               }
               variant="default"
             >
-              Create listing
+              نزل إعلانك
             </Button>
           </Group>
 
@@ -396,7 +396,7 @@ const Navbar: FC<INavbar> = () => {
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="Navigation"
+        title="القائمة"
         className={classes.hiddenDesktop}
         zIndex={1000000}
       >
@@ -436,7 +436,7 @@ const Navbar: FC<INavbar> = () => {
                 </Group>
               </Link>
               <Menu>
-                <Menu.Label>Profile</Menu.Label>
+                <Menu.Label>الملف الشخصي</Menu.Label>
 
                 {/* Mobile - Profile */}
                 <Link
@@ -451,7 +451,7 @@ const Navbar: FC<INavbar> = () => {
                       backgroundColor: "white",
                     }}
                   >
-                    My profile
+                    حسابي
                   </Menu.Item>
                 </Link>
 
@@ -465,7 +465,7 @@ const Navbar: FC<INavbar> = () => {
                     className={classes.link}
                     icon={<IconTags size="0.9rem" stroke={1.5} />}
                   >
-                    My listings
+                    إعلاناتي
                   </Menu.Item>
                 </Link>
 
@@ -485,7 +485,7 @@ const Navbar: FC<INavbar> = () => {
                       />
                     }
                   >
-                    Favourites
+                    المفضلة
                   </Menu.Item>
                 </Link>
 
@@ -501,7 +501,7 @@ const Navbar: FC<INavbar> = () => {
                       />
                     }
                   >
-                    Notifications
+                    الإشعارات
                     <Badge
                       color="red"
                       size="xs"
@@ -522,19 +522,19 @@ const Navbar: FC<INavbar> = () => {
           />
 
           <Menu>
-            {status === "authenticated" && <Menu.Label>Navigate</Menu.Label>}
+            {status === "authenticated" && <Menu.Label>تصفح الموقع</Menu.Label>}
             <Link href="/" className={classes.link} onClick={toggleDrawer}>
-              Home
+              الرئيسية
             </Link>
             <Link
               href="/categories"
               className={classes.link}
               onClick={toggleDrawer}
             >
-              Categories
+              الأقسام
             </Link>
             <Link href="/about" className={classes.link} onClick={toggleDrawer}>
-              About
+              من نحن
             </Link>
           </Menu>
 
@@ -550,7 +550,7 @@ const Navbar: FC<INavbar> = () => {
                   color="red"
                   onClick={() => signOut({ callbackUrl: "/" })}
                 >
-                  Log out
+                  تسجيل خروج
                 </Button>
               </>
             ) : (
@@ -559,7 +559,7 @@ const Navbar: FC<INavbar> = () => {
                   variant="filled"
                   onClick={() => signIn(undefined, { callbackUrl: "/" })}
                 >
-                  Log in
+                  دخول
                 </Button>
               </>
             )}

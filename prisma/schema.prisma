@@ -124,6 +124,12 @@ model User {
   favorites        Favorite[]
   address          Address?
   notifications    Notification[]
+  role             Role           @default(USER)
+}
+
+enum Role {
+  USER
+  ADMIN
 }
 
 model Address {

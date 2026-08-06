@@ -59,26 +59,25 @@ const NotFound: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>Marketplace | 404!</title>
-        <meta name="description" content="404! This page does not exist." />
+        <title>سوقنا | 404!</title>
+        <meta name="description" content="404! الصفحة مهيب موجودة." />
       </Head>
       <Container className={classes.root}>
         <div className={classes.label}>404</div>
-        <Title className={classes.title}>Error 404: Lost in Cyberspace</Title>
+        <Title className={classes.title}>خطأ 404: الصفحة مهيب موجودة</Title>
         <Text
           color="dimmed"
           size="lg"
           align="center"
           className={classes.description}
         >
-          We&apos;re sorry, but the page you&apos;re seeking seems to be lost in
-          cyberspace. We invite you to return to the homepage and continue your
-          journey through our website.
+          المعذرة، بس الصفحة اللي تدور عليها يبدو أنها ضاعت. 
+          تفضل بالرجوع للصفحة الرئيسية وكمل تصفحك في موقعنا.
         </Text>
         <Group position="center">
           <Link href="/">
             <Button variant="subtle" size="md">
-              Take me back to home page
+              رجعني للصفحة الرئيسية
             </Button>
           </Link>
         </Group>

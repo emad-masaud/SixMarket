@@ -19,56 +19,56 @@ import Image from "next/image";
 
 export const footerData = [
   {
-    title: "About",
+    title: "الموقع",
     links: [
       {
-        label: "Features",
+        label: "المميزات",
         link: "#",
       },
       {
-        label: "Support",
+        label: "الدعم الفني",
         link: "#",
       },
     ],
   },
   {
-    title: "Project",
+    title: "المشروع",
     links: [
       {
-        label: "Contribute",
+        label: "المساهمة",
         link: "https://github.com/swapnil233/marketplace",
       },
       {
-        label: "Media assets",
+        label: "المركز الإعلامي",
         link: "#",
       },
       {
-        label: "Changelog",
+        label: "التحديثات",
         link: "#",
       },
       {
-        label: "Releases",
+        label: "الإصدارات",
         link: "#",
       },
     ],
   },
   {
-    title: "Community",
+    title: "مجتمعنا",
     links: [
       {
-        label: "Join Discord",
+        label: "انضم للديسكورد",
         link: "#",
       },
       {
-        label: "Follow on Twitter",
+        label: "تابعنا بتويتر",
         link: "#",
       },
       {
-        label: "Email newsletter",
+        label: "النشرة البريدية",
         link: "#",
       },
       {
-        label: "GitHub discussions",
+        label: "نقاشات قيت هب",
         link: "#",
       },
     ],
@@ -215,14 +215,14 @@ const Footer: FC<IFooter> = () => {
               alt="Marketpalce logo"
             />
             <Text size="xs" color="dimmed" className={classes.description}>
-              Toronto&apos;s new online marketpalce
+              سوقك الإلكتروني الجديد
             </Text>
           </div>
           <div className={classes.groups}>{groups}</div>
         </Container>
         <Container className={classes.afterFooter}>
           <Text color="dimmed" size="sm">
-            © 2023 Marketplace. All rights reserved.
+            © 2024 سوقنا. جميع الحقوق محفوظة.
           </Text>
           <Group spacing={0} className={classes.social} position="right" noWrap>
             <ActionIcon size="lg">

@@ -22,12 +22,16 @@ export const footerData = [
     title: "الموقع",
     links: [
       {
-        label: "المميزات",
-        link: "#",
+        label: "شروط الاستخدام",
+        link: "/terms",
       },
       {
-        label: "الدعم الفني",
-        link: "#",
+        label: "سياسة الخصوصية",
+        link: "/privacy",
+      },
+      {
+        label: "تواصل معنا",
+        link: "mailto:support@meamart.com",
       },
     ],
   },
@@ -35,20 +39,16 @@ export const footerData = [
     title: "المشروع",
     links: [
       {
-        label: "المساهمة",
-        link: "https://github.com/swapnil233/marketplace",
+        label: "الرئيسية",
+        link: "/",
       },
       {
-        label: "المركز الإعلامي",
-        link: "#",
+        label: "الأقسام",
+        link: "/categories",
       },
       {
-        label: "التحديثات",
-        link: "#",
-      },
-      {
-        label: "الإصدارات",
-        link: "#",
+        label: "من نحن",
+        link: "/about",
       },
     ],
   },

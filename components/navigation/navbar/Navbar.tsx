@@ -43,7 +43,6 @@ import { Notification } from "@prisma/client";
 import {
   IconBriefcase,
   IconCar,
-  IconHome,
   IconTag,
   IconTools,
   IconUsers,
@@ -91,12 +90,8 @@ export interface INavbar {}
 const Navbar: FC<INavbar> = () => {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
   const { classes, theme, cx } = navbarStyles();
   const [userMenuOpened, setUserMenuOpened] = useState(false);
-  const [unreadNotifications, setUnreadNotifications] = useState<
-    Notification[]
-  >([]);
   const [unreadNotificationsCount, setUnreadNotificationsCount] =
     useState<number>();
 
@@ -114,7 +109,6 @@ const Navbar: FC<INavbar> = () => {
         )
       ).data;
 
-      setUnreadNotifications(unreadNotifications);
       setUnreadNotificationsCount(unreadNotifications.length);
     }
 
@@ -122,7 +116,7 @@ const Navbar: FC<INavbar> = () => {
     if (status === "authenticated") {
       getUnreadNotifications();
     }
-  }, [status]);
+  }, [status, user?.id]);
 
   const links = dropdownMenuData.map((item) => (
     <UnstyledButton className={classes.subLink} key={item.title}>
@@ -319,7 +313,7 @@ const Navbar: FC<INavbar> = () => {
               withinPortal
             >
               <HoverCard.Target>
-                <a href="#" className={classes.link}>
+                <Link href="/categories" className={classes.link}>
                   <Center inline>
                     <Box component="span" ml={5}>
                       الأقسام
@@ -329,7 +323,7 @@ const Navbar: FC<INavbar> = () => {
                       color={theme.fn.primaryColor()}
                     />
                   </Center>
-                </a>
+                </Link>
               </HoverCard.Target>
 
               <HoverCard.Dropdown sx={{ overflow: "hidden" }}>
@@ -351,9 +345,9 @@ const Navbar: FC<INavbar> = () => {
                 </SimpleGrid>
               </HoverCard.Dropdown>
             </HoverCard>
-            <a href="/about" className={classes.link}>
+            <Link href="/about" className={classes.link}>
               من نحن
-            </a>
+            </Link>
           </Group>
 
           <Group className={classes.hiddenMobile}>

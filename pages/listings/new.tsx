@@ -274,12 +274,13 @@ const NewListing: NextPageWithLayout = () => {
             disabled={isFree}
             defaultValue={0}
             required
-            parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-            formatter={(value) =>
-              !Number.isNaN(parseFloat(value))
-                ? `$ ${value}`.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-                : "$ "
-            }
+            parser={(value) => value.replace(new RegExp(`(?:\\$|€|ر\\.س)\\s?|(,*)`, "g"), "")}
+            formatter={(value) => {
+              const currSymbol = form.values.currency === "USD" ? "$" : form.values.currency === "EUR" ? "€" : "ر.س";
+              return !Number.isNaN(parseFloat(value))
+                ? `${currSymbol} ${value}`.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                : `${currSymbol} `;
+            }}
           />
           <Select
             label="العملة"

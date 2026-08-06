@@ -2,7 +2,6 @@ import { RouterTransition } from "@/components/RouterTransition";
 import "@/styles/globals.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import { Analytics } from "@vercel/analytics/react";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -34,7 +33,6 @@ export default function App({
           <Notifications position="top-right" />
         </SessionProvider>
       </MantineProvider>
-      <Analytics />
     </>
   );
 }

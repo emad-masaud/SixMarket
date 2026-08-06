@@ -21,53 +21,53 @@ interface AdminProps {
 
 const AdminDashboard: NextPageWithLayout<AdminProps> = ({ stats, listings }) => {
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure you want to delete this listing?")) return;
+    if (!confirm("هل أنت متأكد من حذف هذا الإعلان؟")) return;
     try {
       const res = await fetch(`/api/admin/listings/${id}`, { method: "DELETE" });
       if (res.ok) {
         window.location.reload();
       } else {
-        alert("Failed to delete listing.");
+        alert("فشل الحذف.");
       }
     } catch (e) {
-      alert("Error deleting listing.");
+      alert("حدث خطأ أثناء الحذف.");
     }
   };
 
   return (
     <div className="flex flex-col w-full">
-      <Title order={1} mb="xl">Admin Dashboard</Title>
+      <Title order={1} mb="xl">لوحة التحكم</Title>
 
       <div className="grid grid-cols-2 gap-4 mb-10">
         <div className="p-6 bg-blue-50 border border-blue-200 rounded-lg">
-          <Title order={3}>Total Users</Title>
+          <Title order={3}>إجمالي المستخدمين</Title>
           <p className="text-3xl font-bold text-blue-600">{stats.usersCount}</p>
         </div>
         <div className="p-6 bg-green-50 border border-green-200 rounded-lg">
-          <Title order={3}>Total Listings</Title>
+          <Title order={3}>إجمالي الإعلانات</Title>
           <p className="text-3xl font-bold text-green-600">{stats.listingsCount}</p>
         </div>
       </div>
 
-      <Title order={2} mb="md">Manage Listings</Title>
+      <Title order={2} mb="md">إدارة الإعلانات</Title>
       <Table striped highlightOnHover>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>User</th>
-            <th>Action</th>
+            <th>الاسم</th>
+            <th>السعر</th>
+            <th>المستخدم</th>
+            <th>إجراء</th>
           </tr>
         </thead>
         <tbody>
           {listings.map((item) => (
             <tr key={item.id}>
               <td>{item.name}</td>
-              <td>${item.price}</td>
+              <td>{item.price}</td>
               <td>{item.userName}</td>
               <td>
                 <Button color="red" size="xs" onClick={() => handleDelete(item.id)}>
-                  Delete
+                  حذف
                 </Button>
               </td>
             </tr>

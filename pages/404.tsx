@@ -60,11 +60,11 @@ const NotFound: NextPageWithLayout = () => {
     <>
       <Head>
         <title>سوقنا | 404!</title>
-        <meta name="description" content="404! الصفحة مهيب موجودة." />
+        <meta name="description" content="404! الصفحة غير موجودة." />
       </Head>
       <Container className={classes.root}>
         <div className={classes.label}>404</div>
-        <Title className={classes.title}>خطأ 404: الصفحة مهيب موجودة</Title>
+        <Title className={classes.title}>خطأ 404: الصفحة غير موجودة</Title>
         <Text
           color="dimmed"
           size="lg"

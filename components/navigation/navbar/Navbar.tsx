@@ -53,22 +53,15 @@ import axios from "axios";
 export const dropdownMenuData = [
   {
     icon: IconTag,
-    title: "بيع واشتر",
+    title: "بيع وشراء",
     description: "تصفح واشتر من مجموعة واسعة من المنتجات",
-    slug: "electronics",
+    slug: "buy-and-sell",
   },
   {
     icon: IconCar,
-    title: "مواتر ومركبات",
+    title: "مركبات",
     description: "اكتشف السيارات والمواتر الجديدة والمستعملة",
     slug: "vehicles",
-  },
-  {
-    icon: IconHome,
-    title: "عقارات",
-    description:
-      "تصفح العقارات للبيع أو الإيجار، بيوت، شقق، ومحلات",
-    slug: "real-estate",
   },
   {
     icon: IconBriefcase,

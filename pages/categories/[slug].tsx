@@ -47,21 +47,21 @@ const Home: NextPageWithLayout = () => {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <meta
           name="description"
-          content={`View and filter through the listings and ads within ${categoryInfo.name}.`}
+          content={`تصفح وابحث في إعلانات وعروض قسم ${categoryInfo.name}.`}
         />
 
-        <meta property="og:title" content={`Categories | Marketplace`} />
+        <meta property="og:title" content={`الأقسام | سوقنا`} />
         <meta
           property="og:description"
-          content={`View and filter through the listings and ads within ${categoryInfo.name}.`}
+          content={`تصفح وابحث في إعلانات وعروض قسم ${categoryInfo.name}.`}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Marketplace" />
+        <meta property="og:site_name" content="سوقنا" />
       </Head>
 
       <HeadingSection
         title={categoryInfo.name}
-        description={`View and filter through the listings and ads within ${categoryInfo.name}.`}
+        description={`تصفح وابحث في إعلانات وعروض قسم ${categoryInfo.name}.`}
       />
     </>
   );

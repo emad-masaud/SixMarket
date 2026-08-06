@@ -61,7 +61,7 @@ export const dropdownMenuData = [
     icon: IconCar,
     title: "مواتر ومركبات",
     description: "اكتشف السيارات والمواتر الجديدة والمستعملة",
-    slug: "electronics",
+    slug: "vehicles",
   },
   {
     icon: IconHome,
@@ -138,7 +138,7 @@ const Navbar: FC<INavbar> = () => {
           <item.icon size={rem(22)} color={theme.fn.primaryColor()} />
         </ThemeIcon>
         <Link
-          href={`categories/${item.slug}`}
+          href={`/categories/${item.slug}`}
           className="text-decoration-none no-underline"
         >
           <Text size="sm" fw={500} className="text-slate-900">

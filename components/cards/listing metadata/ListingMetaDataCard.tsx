@@ -9,6 +9,7 @@ import {
   IconEye,
   IconMapPin,
   IconSend,
+  IconBrandWhatsapp,
   IconX,
 } from "@tabler/icons-react";
 import axios from "axios";
@@ -57,6 +58,11 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
   );
 
   // Form depends on if user has already sent a message to the poster
+  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || "+966500000000";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://meamart.com";
+  const whatsappMessage = encodeURIComponent(`السلام عليكم، بخصوص الإعلان: ${baseUrl}/listings/${listing.id}`);
+  const whatsappLink = `https://wa.me/${whatsappNumber.replace(/\+/g, '')}?text=${whatsappMessage}`;
+
   const renderForm = () => (
     <form
       onSubmit={form.onSubmit((values, event) =>
@@ -92,6 +98,18 @@ const ListingMetaDataCard: FC<IListingMetaDataCard> = ({
           </Group>
         </>
       )}
+      <Button
+        component="a"
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        color="teal"
+        fullWidth
+        mt="md"
+        leftIcon={<IconBrandWhatsapp size="1.2rem" />}
+      >
+        تواصل عبر الواتساب
+      </Button>
     </form>
   );
 

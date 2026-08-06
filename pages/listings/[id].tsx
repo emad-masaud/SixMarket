@@ -147,6 +147,26 @@ const IndividualListing: NextPageWithLayout<IndividualListingProps> = ({
         <meta property="og:image" content={listingInfo.images[0].url} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Marketplace" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: listingInfo?.name,
+              image: listingInfo?.images.map((img) => img.url),
+              description: listingInfo?.description || "",
+              offers: {
+                "@type": "Offer",
+                url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://meamart.com"}/listings/${listingInfo?.id}`,
+                priceCurrency: listingInfo?.currency || "SAR",
+                price: listingInfo?.price || 0,
+                itemCondition: "https://schema.org/UsedCondition",
+                availability: "https://schema.org/InStock",
+              },
+            }),
+          }}
+        />
       </Head>
 
       {/* Title, price & fav button */}

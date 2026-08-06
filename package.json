@@ -8,8 +8,8 @@
   "scripts": {
     "postinstall": "prisma generate",
     "dev": "cross-env NODE_OPTIONS='--inspect' next dev -p 3003",
-    "build": "prisma db push && next build",
-    "start": "next start",
+    "build": "next build",
+    "start": "prisma db push && next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
     "seed": "ts-node seed.ts",
